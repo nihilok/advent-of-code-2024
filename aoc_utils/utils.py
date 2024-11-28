@@ -17,8 +17,9 @@ def get_puzzle_input(day: int, year: int = 2024) -> str:
         return cache_file.read_text()
 
     cookies = {
-            "session": os.getenv("AOC_SESSION")
+            "session": os.getenv("AOC_SESSION_COOKIE")
     }
+    print(cookies)
     response = requests.get(f'https://adventofcode.com/{year}/day/{day}/input', cookies=cookies)
     response.raise_for_status()
     input_text = response.text
