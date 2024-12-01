@@ -1,13 +1,36 @@
+from collections import Counter
+
 from aoc_utils import get_puzzle_input
 
 
-def part_1(data):
-    pass
+def parse(data):
+    lines = data.splitlines()
+    left, right = [], []
+    for line in lines:
+        l, r = line.split("   ")
+        left.append(int(l))
+        right.append(int(r))
+    return left, right
 
+def part_1(data):
+    left, right = parse(data)
+    total = 0
+    while left and right:
+        min_left = min(left)
+        min_right = min(right)
+        total += abs(min_left - min_right)
+        left.remove(min_left)
+        right.remove(min_right)
+    return total
 
 def part_2(data):
-    pass
-
+    left, right = parse(data)
+    total = 0
+    right_counter = Counter(right)
+    for l in left:
+        multiplier = right_counter.get(l, 0)
+        total += l * multiplier
+    return total
 
 if __name__ == "__main__":
     data = get_puzzle_input(day=1, year=2024)
