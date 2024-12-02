@@ -19,7 +19,7 @@ def get_puzzle_input(day: int, year: int = 2024) -> str:
     cookies = {
             "session": os.getenv("AOC_SESSION_COOKIE")
     }
-    print(cookies)
+
     response = requests.get(f'https://adventofcode.com/{year}/day/{day}/input', cookies=cookies)
     response.raise_for_status()
     input_text = response.text
@@ -28,6 +28,5 @@ def get_puzzle_input(day: int, year: int = 2024) -> str:
 
 
 if __name__ == "__main__":
-    day = 1
-    puzzle_input = get_puzzle_input(day)
+    puzzle_input = get_puzzle_input(1)
     print(puzzle_input)
