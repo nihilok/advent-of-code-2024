@@ -2,11 +2,67 @@ from aoc_utils import get_puzzle_input
 
 
 def parse_input(puzzle_input):
-    pass
+    reports = [[int(v) for v in line.split()] for line in puzzle_input.splitlines()]
+    return reports
+
+
+def is_safe_report(report):
+    last_value = None
+    ascending = None
+    safe = True
+    for value in report:
+        if last_value is None:
+            last_value = value
+            continue
+        if last_value == value:
+            safe = False
+            break
+        if abs(last_value - value) > 3:
+            safe = False
+            break
+        if ascending is True and last_value > value:
+            safe = False
+            break
+        if ascending is False and last_value < value:
+            safe = False
+            break
+        if ascending is None:
+            ascending = last_value < value
+
+        last_value = value
+    return safe
 
 
 def part_1(puzzle_input):
-    pass
+    reports = parse_input(puzzle_input)
+    safe_reports = 0
+    for report in reports:
+        last_value = None
+        ascending = None
+        safe = True
+        for value in report:
+            if last_value is None:
+                last_value = value
+                continue
+            if last_value == value:
+                safe = False
+                break
+            if abs(last_value - value) > 3:
+                safe = False
+                break
+            if ascending is True and last_value > value:
+                safe = False
+                break
+            if ascending is False and last_value < value:
+                safe = False
+                break
+            if ascending is None:
+                ascending = last_value < value
+
+            last_value = value
+        if safe:
+            safe_reports += 1
+    return safe_reports
 
 
 def part_2(puzzle_input):

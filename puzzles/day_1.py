@@ -12,6 +12,7 @@ def parse(data):
         right.append(int(r))
     return left, right
 
+
 def part_1(data):
     left, right = parse(data)
     total = 0
@@ -23,6 +24,7 @@ def part_1(data):
         right.remove(min_right)
     return total
 
+
 def part_2(data):
     left, right = parse(data)
     total = 0
@@ -31,6 +33,7 @@ def part_2(data):
         multiplier = right_counter.get(l, 0)
         total += l * multiplier
     return total
+
 
 if __name__ == "__main__":
     data = get_puzzle_input(day=1, year=2024)

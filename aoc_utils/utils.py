@@ -16,11 +16,11 @@ def get_puzzle_input(day: int, year: int = 2024) -> str:
     if cache_file.exists():
         return cache_file.read_text()
 
-    cookies = {
-            "session": os.getenv("AOC_SESSION_COOKIE")
-    }
+    cookies = {"session": os.getenv("AOC_SESSION_COOKIE")}
 
-    response = requests.get(f'https://adventofcode.com/{year}/day/{day}/input', cookies=cookies)
+    response = requests.get(
+        f"https://adventofcode.com/{year}/day/{day}/input", cookies=cookies
+    )
     response.raise_for_status()
     input_text = response.text
     cache_file.write_text(input_text)
