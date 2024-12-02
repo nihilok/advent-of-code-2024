@@ -37,30 +37,7 @@ def part_1(puzzle_input):
     reports = parse_input(puzzle_input)
     safe_reports = 0
     for report in reports:
-        last_value = None
-        ascending = None
-        safe = True
-        for value in report:
-            if last_value is None:
-                last_value = value
-                continue
-            if last_value == value:
-                safe = False
-                break
-            if abs(last_value - value) > 3:
-                safe = False
-                break
-            if ascending is True and last_value > value:
-                safe = False
-                break
-            if ascending is False and last_value < value:
-                safe = False
-                break
-            if ascending is None:
-                ascending = last_value < value
-
-            last_value = value
-        if safe:
+        if is_safe_report(report):
             safe_reports += 1
     return safe_reports
 
