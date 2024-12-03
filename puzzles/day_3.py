@@ -3,7 +3,7 @@ from aoc_utils import get_puzzle_input
 
 
 def parse_input(puzzle_input):
-    mul_pattern = re.compile(r"(mul\(\d{1,3},\d{1,3}\))") 
+    mul_pattern = re.compile(r"(mul\(\d{1,3},\d{1,3}\))")
     muls = mul_pattern.findall(puzzle_input)
     return muls
 
@@ -15,10 +15,17 @@ def part_1(puzzle_input):
         a, b = map(int, mul[4:-1].split(","))
         total += a * b
     return total
-        
+
+
+def parse_input_2(puzzle_input):
+    mul_pattern = re.compile(r"(mul\(\d{1,3},\d{1,3}\))+?")
+    muls = mul_pattern.findall(puzzle_input)
+    return muls
+
 
 def part_2(puzzle_input):
-    pass
+    do_muls = parse_input_2(puzzle_input)
+
 
 
 if __name__ == "__main__":
