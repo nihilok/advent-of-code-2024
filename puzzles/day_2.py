@@ -43,7 +43,19 @@ def part_1(puzzle_input):
 
 
 def part_2(puzzle_input):
-    pass
+    reports = parse_input(puzzle_input)
+    safe_reports = 0
+    for report in reports:
+        if is_safe_report(report):
+            safe_reports += 1
+            continue
+        for i, value in enumerate(report):
+            new_report = report.copy()
+            new_report.pop(i)
+            if is_safe_report(new_report):
+                safe_reports += 1
+                break
+    return safe_reports
 
 
 if __name__ == "__main__":
