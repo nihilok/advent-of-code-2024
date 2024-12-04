@@ -18,14 +18,26 @@ def part_1(puzzle_input):
 
 
 def parse_input_2(puzzle_input):
-    mul_pattern = re.compile(r"(mul\(\d{1,3},\d{1,3}\))+?")
-    muls = mul_pattern.findall(puzzle_input)
-    return muls
+    pattern = re.compile(r"(mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\))")
+    return pattern.findall(puzzle_input)
 
 
 def part_2(puzzle_input):
-    do_muls = parse_input_2(puzzle_input)
+    matches = parse_input_2(puzzle_input)
 
+    total = 0
+    multiply_enabled = True
+    for match in matches:
+        if match == "do()":
+            multiply_enabled = True
+        elif match == "don't()":
+            multiply_enabled = False
+        elif match.startswith("mul("):
+            if multiply_enabled:
+                a, b = map(int, match[4:-1].split(","))
+                total += a * b
+
+    return total
 
 
 if __name__ == "__main__":
