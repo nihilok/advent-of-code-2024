@@ -58,7 +58,10 @@ def part_2(puzzle_input):
     return safe_reports
 
 
-if __name__ == "__main__":
+def main():
     puzzle_input = get_puzzle_input(2).strip()
     print(f"{part_1(puzzle_input)=}")
     print(f"{part_2(puzzle_input)=}")
+
+if __name__ == "__main__":
+    main() 

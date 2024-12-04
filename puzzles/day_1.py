@@ -35,7 +35,11 @@ def part_2(data):
     return total
 
 
+def main():
+    puzzle_input = get_puzzle_input(day=1, year=2024)
+    print(f"{part_1(puzzle_input)=}")
+    print(f"{part_2(puzzle_input)=}")
+
+
 if __name__ == "__main__":
-    data = get_puzzle_input(day=1, year=2024)
-    print(f"{part_1(data)=}")
-    print(f"{part_2(data)=}")
+    main()

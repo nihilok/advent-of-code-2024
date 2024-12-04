@@ -40,8 +40,11 @@ def part_2(puzzle_input):
     return total
 
 
-if __name__ == "__main__":
-    DAY = 3
-    puzzle_input = get_puzzle_input(DAY).strip()
+def main():
+    puzzle_input = get_puzzle_input(3).strip()
     print(f"{part_1(puzzle_input)=}")
     print(f"{part_2(puzzle_input)=}")
+
+
+if __name__ == "__main__":
+    main() 
