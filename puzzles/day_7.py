@@ -26,9 +26,10 @@ def evaluate_combinations(values, operations):
     return results
 
 
-def part_1(puzzle_input):
+def part_1(puzzle_input, operations=None):
     equations = parse_input(puzzle_input)
-    operations = [op.add, op.mul]
+    if operations is None:
+        operations = [op.add, op.mul]
     total = 0
     for target, values in equations:
         results = evaluate_combinations(values, operations)
@@ -37,8 +38,13 @@ def part_1(puzzle_input):
     return total
 
 
+def concat(a, b):
+    return int(f"{a}{b}")
+
+
 def part_2(puzzle_input):
-    pass
+    operations = [op.add, op.mul, concat]
+    return part_1(puzzle_input, operations)
 
 
 def main():
