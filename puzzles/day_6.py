@@ -1,4 +1,3 @@
-from pprint import pprint
 from typing import NamedTuple
 
 from aoc_utils import get_puzzle_input
@@ -74,6 +73,9 @@ def part_1(puzzle_input):
             break
 
     return sum(position == MARKED for row in grid for position in row)
+
+
+
 
 
 def part_2(puzzle_input):
