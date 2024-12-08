@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 DAY=$1
 
 if [ -z $DAY ]; then
@@ -7,7 +9,20 @@ if [ -z $DAY ]; then
     exit 1
 fi
 
-CURRENT_DIR=$(pwd)
+CURRENT_DIR="$PWD"
+
+if ! ls "puzzles" > /dev/null 2>&1; then
+        if [ $(basename "$CURRENT_DIR") == "aoc_utils" ]; then
+                CURRENT_DIR="../puzzles"
+                if ! ls "$CURRENT_DIR" > /dev/null 2>&1; then
+                        echo "No 'puzzles/' dir in project; exiting without creating file" && exit 1
+                fi
+        elif [ $(basename "$CURRENT_DIR") != "puzzles" ]; then
+                echo "Must be run inside advent-of-code dir" && exit 1
+        fi
+else
+        CURRENT_DIR="$CURRENT_DIR/puzzles"
+fi      
 
 TEMPLATE='from aoc_utils import get_puzzle_input
 
@@ -37,4 +52,7 @@ if __name__ == "__main__":
 NEW_FILE="${CURRENT_DIR}/day_${DAY}.py"
 
 echo "$TEMPLATE" > "${NEW_FILE}"
-echo "Done! Created ${NEW_FILE}"
+echo "Created ${NEW_FILE}"
+
+$EDITOR "$NEW_FILE" && exit 0 || echo "Error opening default editor" && exit 1
+
