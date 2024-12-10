@@ -57,6 +57,22 @@ def create_path_to_next_obstacle(grid, direction):
     return grid
 
 
+def create_path_with_stateful_grid(grid, direction):
+    guard = next(map_position for row in grid for map_position in row if map_position.is_guard)
+    while True:
+        next_position = next(pos for row in grid for pos in row if pos.x == guard.x + direction.x and pos.y == guard.y + direction.y)
+        if next_position.is_obstactle:
+            break
+        except StopIteration:
+            break
+        guard.is_guard = False
+        guard.num_visits += 1
+        next_position.is_guard = True
+    all_visited_positions = [pos for pos in row for row in grid if pos.num_visits >= 2]
+
+
+
+
 def part_1(puzzle_input):
     grid = parse_input(puzzle_input)
     directions = Directions()
@@ -75,16 +91,27 @@ def part_1(puzzle_input):
     return sum(position == MARKED for row in grid for position in row)
 
 
-
-
+class MapPosition(NamedTuple):
+    x: int
+    y: int
+    is_obstactle: bool
+    is_guard: bool
+    num_visits: int = 0
 
 def part_2(puzzle_input):
-    pass
+    grid = parse_input(puzzle_input)
+    stateful_grid = []
+    for y, row in enumerate(grid):
+        new_row = []
+        for x, pos in enumerate(row):
+            new_row.append(MapPosition(x=x, y=y, is_obstactle=pos==OBSTRUCTION, is_guard=pos==GUARD))
+        stateful_grid.append(new_row)
+    
 
 
 def main():
-    puzzle_input = get_puzzle_input(6).strip()
-    # puzzle_input = EXAMPLE_INPUT.strip()
+    # puzzle_input = get_puzzle_input(6).strip()
+    puzzle_input = EXAMPLE_INPUT.strip()
     print(f"{part_1(puzzle_input)=}")
     print(f"{part_2(puzzle_input)=}")
 
